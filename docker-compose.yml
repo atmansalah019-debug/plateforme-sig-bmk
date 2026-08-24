@@ -1,0 +1,67 @@
+services:
+
+  # ─── Base de données PostGIS ─────────────────────────────────────────────────
+  postgis:
+    image: postgis/postgis:15-3.3
+    container_name: sig_postgis
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=sig_benimellal
+    ports:
+      - "5432:5432"   # Port PostgreSQL standard (changer en 5433:5432 si conflit local)
+    volumes:
+      - postgis_data:/var/lib/postgresql/data
+    networks:
+      - sig_network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d sig_benimellal"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  # ─── API FastAPI ──────────────────────────────────────────────────────────────
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: sig_backend
+    ports:
+      - "8000:8000"   # API REST + Swagger UI → http://localhost:8000/docs
+    volumes:
+      - ./backend:/app   # Hot-reload en développement
+    environment:
+      - DATABASE_URL=postgresql+asyncpg://postgres:postgres@postgis:5432/sig_benimellal
+      - SYNC_DATABASE_URL=postgresql://postgres:postgres@postgis:5432/sig_benimellal
+    depends_on:
+      postgis:
+        condition: service_healthy
+    networks:
+      - sig_network
+    restart: unless-stopped
+
+  # ─── Frontend React (nginx - build production) ────────────────────────────────
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        - REACT_APP_API_BASE=/api/spatial
+    container_name: sig_frontend
+    ports:
+      - "80:80"       # Application web → http://localhost
+    depends_on:
+      - backend
+    networks:
+      - sig_network
+    restart: unless-stopped
+
+networks:
+  sig_network:
+    driver: bridge
+    name: sig_network
+
+volumes:
+  postgis_data:
+    name: sig_postgis_data
