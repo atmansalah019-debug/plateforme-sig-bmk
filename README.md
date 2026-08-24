@@ -41,7 +41,7 @@ docker-compose up -d
 |---------|-----|-------------|
 | 🌐 **Application** | http://localhost | Interface cartographique |
 | 📖 **API Swagger** | http://localhost:8000/docs | Documentation interactive de l'API |
-| 🗄️ **Base de données** | localhost:5432 | PostgreSQL + PostGIS |
+| 🗄️ **Base de données** | localhost:5433 | PostgreSQL + PostGIS |
 
 ---
 
@@ -154,6 +154,10 @@ Projet/
 ├── docker-compose.yml       # Orchestration des 3 services
 ├── README.md
 ├── .gitignore
+│
+├── database-seed/           # Initialisation automatique (Création de PostGIS + Données)
+│   ├── 01_init.sql
+│   └── 02_data.sql
 │
 ├── backend/                 # API FastAPI
 │   ├── Dockerfile

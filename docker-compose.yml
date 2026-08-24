@@ -9,9 +9,10 @@ services:
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_DB=sig_benimellal
     ports:
-      - "5432:5432"   # Port PostgreSQL standard (changer en 5433:5432 si conflit local)
+      - "5433:5432"   # Port PostgreSQL standard (changer en 5433:5432 si conflit local)
     volumes:
       - projet_postgis_data:/var/lib/postgresql/data
+      - ./database-seed:/docker-entrypoint-initdb.d
     networks:
       - sig_network
     healthcheck:

@@ -34,11 +34,21 @@ def load_shapefile_to_postgis(filepath: str, table_name: str):
         if gdf.active_geometry_name != 'geom':
             gdf = gdf.rename_geometry('geom')
 
+        # Si la table a déjà été créée dans cette session, on ajoute (append)
+        # Sinon, on remplace (replace)
+        if hasattr(load_shapefile_to_postgis, 'loaded_tables') and table_name in load_shapefile_to_postgis.loaded_tables:
+            mode = 'append'
+        else:
+            mode = 'replace'
+            if not hasattr(load_shapefile_to_postgis, 'loaded_tables'):
+                load_shapefile_to_postgis.loaded_tables = set()
+            load_shapefile_to_postgis.loaded_tables.add(table_name)
+
         # Insérer dans PostGIS
         gdf.to_postgis(
             name=table_name,
             con=engine,
-            if_exists='replace',
+            if_exists=mode,
             index=True,
             index_label='id'
         )
