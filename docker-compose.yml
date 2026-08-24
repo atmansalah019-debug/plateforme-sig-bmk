@@ -11,7 +11,7 @@ services:
     ports:
       - "5432:5432"   # Port PostgreSQL standard (changer en 5433:5432 si conflit local)
     volumes:
-      - postgis_data:/var/lib/postgresql/data
+      - projet_postgis_data:/var/lib/postgresql/data
     networks:
       - sig_network
     healthcheck:
@@ -63,5 +63,5 @@ networks:
     name: sig_network
 
 volumes:
-  postgis_data:
-    name: sig_postgis_data
+  projet_postgis_data:
+    external: true   # Volume existant avec toutes les données PostGIS
