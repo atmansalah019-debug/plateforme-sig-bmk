@@ -23,8 +23,8 @@
 
 ### 1. Cloner le projet
 ```bash
-git clone https://github.com/<votre-username>/<repo-name>.git
-cd <repo-name>
+git clone https://github.com/atmansalah019-debug/plateforme-sig-bmk.git
+cd plateforme-sig-bmk
 ```
 
 ### 2. Lancer tous les services
@@ -203,5 +203,6 @@ ports:
 ## 🙏 Données
 
 - Données administratives : [OpenStreetMap](https://www.openstreetmap.org/) (licence ODbL)
-- Données démographiques : Recensement Général de la Population et de l'Habitat (RGPH 2014)
+- Données démographiques : Recensement Général de la Population et de l'Habitat (RGPH 2024)
+- SIG-MAROC  (https://www.sig-maroc.com/)
 - Région : Béni Mellal-Khénifra, Maroc
