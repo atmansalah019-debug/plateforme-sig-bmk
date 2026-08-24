@@ -60,8 +60,7 @@ services:
 networks:
   sig_network:
     driver: bridge
-    name: sig_network
 
 volumes:
   projet_postgis_data:
-    external: true   # Volume existant avec toutes les données PostGIS
+    # Volume géré automatiquement par Docker (créé s'il n'existe pas)
