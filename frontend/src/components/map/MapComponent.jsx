@@ -26,9 +26,9 @@ const pct = (a, b) => (b && b > 0) ? ((Number(a) / Number(b)) * 100).toFixed(1) 
 
 // ─── Fonds de carte ────────────────────────────────────────────────────────────
 const BASEMAPS = [
-  { id: 'dark',      label: 'Sombre',    icon: '🌙', url: 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',                                                       attribution: '© OpenStreetMap | © CARTO' },
+  { id: 'dark',      label: 'Sombre',    icon: '🌙', url: 'https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png',                                                       attribution: '© OpenStreetMap | © CARTO' },
   { id: 'satellite', label: 'Satellite', icon: '🛰️', url: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',                        attribution: '© Esri' },
-  { id: 'light',     label: 'Clair',     icon: '☀️', url: 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',                                                       attribution: '© OpenStreetMap | © CARTO' },
+  { id: 'light',     label: 'Clair',     icon: '☀️', url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',                                                       attribution: '© OpenStreetMap | © CARTO' },
 ];
 
 // ─── Couches ───────────────────────────────────────────────────────────────────
